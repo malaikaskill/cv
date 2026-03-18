@@ -3,141 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dark Professional CV - 2026 Edition</title>
+    <title>Malaika Pervez - Professional CV 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --a4-width: 210mm;
+            --a4-height: 297mm;
+        }
+
         body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: #0B0E14;
+            font-family: 'Inter', sans-serif; 
+            background-color: #0f172a; 
+            margin: 0; padding: 20px;
+            display: flex; flex-direction: column; align-items: center;
         }
-        .cv-page {
-            background-color: #11141A;
-            color: #E2E8F0;
+
+        /* A4 Page Styling */
+        #cv-page {
+            width: var(--a4-width);
+            height: var(--a4-height);
+            background-color: #020617; /* Deepest Black/Blue */
+            color: #f1f5f9;
+            padding: 0;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
         }
+
         .editable:focus { 
-            outline: none; 
+            outline: 2px solid #3b82f6; 
             background: rgba(59, 130, 246, 0.1); 
-            border-bottom: 1px dashed #3b82f6;
+            padding: 2px; border-radius: 4px;
         }
-        .section-title {
-            color: #3b82f6; /* Electric Blue */
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
+
+        .sidebar { background-color: #0f172a; height: 100%; }
+        .accent-text { color: #60a5fa; }
+        .section-header {
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 8px;
+            margin-bottom: 16px;
             font-size: 0.75rem;
-            font-weight: 700;
-            border-left: 3px solid #3b82f6;
-            padding-left: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #94a3b8;
         }
+
         @media print { .no-print { display: none; } }
     </style>
 </head>
-<body class="p-4 md:p-10">
+<body>
 
-    <div class="no-print fixed bottom-8 left-1/2 -translate-x-1/2 flex gap-3 bg-gray-900/80 backdrop-blur-md border border-gray-700 p-3 rounded-full z-50 shadow-2xl">
-        <button onclick="toggleEdit()" class="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded-full text-sm font-semibold transition">
-            <i data-lucide="settings" class="w-4 h-4"></i> <span>Edit Mode</span>
+    <div class="no-print mb-8 flex gap-4">
+        <button onclick="toggleEdit()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full font-bold shadow-lg transition flex items-center gap-2">
+            <i data-lucide="edit-3" class="w-4 h-4"></i> Toggle Edit
         </button>
-        <button onclick="downloadPDF()" class="flex items-center gap-2 bg-white hover:bg-gray-200 text-black px-5 py-2 rounded-full text-sm font-semibold transition">
-            <i data-lucide="download" class="w-4 h-4"></i> <span>Export PDF</span>
+        <button onclick="downloadPDF()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-full font-bold shadow-lg transition flex items-center gap-2">
+            <i data-lucide="file-down" class="w-4 h-4"></i> Download A4 PDF
         </button>
     </div>
 
-    <div id="cv-content" class="cv-page max-w-[850px] mx-auto shadow-2xl rounded-xl overflow-hidden border border-gray-800">
+    <div id="cv-page" class="flex">
         
-        <div class="bg-gradient-to-r from-[#161B22] to-[#11141A] p-10 flex items-center gap-8 border-b border-gray-800">
-            <div class="relative group">
-                <div class="w-32 h-32 rounded-2xl border-2 border-blue-500/30 overflow-hidden bg-gray-800">
-                    <img id="profile-img" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" class="w-full h-full object-cover">
+        <aside class="w-1/3 sidebar p-10 flex flex-col border-r border-slate-800">
+            <div class="relative group mb-8">
+                <div class="w-32 h-32 rounded-2xl bg-slate-800 border-2 border-blue-500/20 overflow-hidden mx-auto">
+                    <img id="profile-img" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Malaika" class="w-full h-full object-cover">
                 </div>
                 <input type="file" id="img-input" class="hidden" accept="image/*" onchange="previewImage(this)">
-                <label for="img-input" class="no-print absolute inset-0 bg-blue-600/60 opacity-0 group-hover:opacity-100 flex items-center justify-center cursor-pointer rounded-2xl transition text-xs font-bold text-white uppercase">Upload</label>
+                <label for="img-input" class="no-print absolute inset-0 bg-blue-600/40 opacity-0 group-hover:opacity-100 flex items-center justify-center cursor-pointer rounded-2xl transition text-[10px] font-bold text-white uppercase">Change Photo</label>
             </div>
-            
-            <div class="flex-1">
-                <h1 contenteditable="false" class="editable text-4xl font-extrabold tracking-tight text-white">NAME SURNAME</h1>
-                <p contenteditable="false" class="editable text-blue-400 font-medium text-lg">CS Student & Data Specialist</p>
-                
-                <div class="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-400">
-                    <span class="flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4"></i> <span contenteditable="false" class="editable">contact@email.com</span></span>
-                    <span class="flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4"></i> <span contenteditable="false" class="editable">City, Country</span></span>
-                    <span class="flex items-center gap-2"><i data-lucide="link" class="w-4 h-4"></i> <span contenteditable="false" class="editable">github.com/yourhandle</span></span>
+
+            <section class="mb-10">
+                <h2 class="section-header">Contact</h2>
+                <div class="space-y-4 text-xs text-slate-300">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="mail" class="w-4 h-4 text-blue-400"></i>
+                        <span contenteditable="true" class="editable">malaikaskill@gmail.com</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="phone" class="w-4 h-4 text-blue-400"></i>
+                        <span contenteditable="true" class="editable">+923086336809</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="map-pin" class="w-4 h-4 text-blue-400"></i>
+                        <span contenteditable="true" class="editable">Madina Town, Faisalabad</span>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </section>
 
-        <div class="grid grid-cols-12">
-            <div class="col-span-4 bg-[#0D1117] p-8 border-r border-gray-800 space-y-10">
-                
-                <section>
-                    <h2 class="section-title mb-4">Core Expertise</h2>
-                    <div class="space-y-4">
-                        <div>
-                            <p class="text-[10px] text-gray-500 font-bold uppercase mb-1 tracking-widest">Office Suite</p>
-                            <p contenteditable="false" class="editable text-sm leading-relaxed">Advanced Excel & Google Sheets (Pivot Tables, VLOOKUP/XLOOKUP, Query functions, AppScript automation).</p>
+            <section class="mb-10">
+                <h2 class="section-header">Software Expertise</h2>
+                <div class="space-y-4">
+                    <div>
+                        <p class="text-[10px] font-bold text-blue-400 uppercase tracking-tighter mb-1">Spreadsheet Power</p>
+                        <p contenteditable="true" class="editable text-xs text-slate-300 leading-relaxed">Advanced Excel & Google Sheets (XLOOKUP, Macros, Pivot Tables, Data Validation, Power Query).</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-bold text-blue-400 uppercase tracking-tighter mb-1">Documentation</p>
+                        <p contenteditable="true" class="editable text-xs text-slate-300 leading-relaxed">Microsoft Word, Google Docs, PDF Form Creation, Cloud Collaboration.</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-bold text-blue-400 uppercase tracking-tighter mb-1">Technical Stack</p>
+                        <p contenteditable="true" class="editable text-xs text-slate-300 leading-relaxed">HTML5, CSS3, Tailwind, JavaScript, SQL, Python for Data Automation.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="section-header">Education</h2>
+                <div class="text-xs">
+                    <p contenteditable="true" class="editable font-bold text-white">BS Computer Science</p>
+                    <p class="text-blue-400 mt-1">2nd Year Student</p>
+                    <p class="text-slate-500 italic mt-1 text-[10px]">Expected 2028</p>
+                </div>
+            </section>
+        </aside>
+
+        <main class="w-2/3 p-12 flex flex-col">
+            <header class="mb-12">
+                <h1 contenteditable="true" class="editable text-5xl font-black tracking-tighter text-white uppercase">Malaika Pervez</h1>
+                <p contenteditable="true" class="editable text-blue-400 text-lg font-medium mt-2">Data Management Specialist & Web Developer</p>
+            </header>
+
+            <section class="mb-10">
+                <h2 class="section-header">Data Handling & Management</h2>
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-800">
+                        <h3 class="font-bold text-sm text-white flex items-center gap-2 mb-2">
+                            <i data-lucide="table" class="w-4 h-4 text-blue-400"></i> Accountant Support
+                        </h3>
+                        <p contenteditable="true" class="editable text-[11px] text-slate-400 leading-relaxed">Specialized in assisting restaurant accountants with daily sales reconciliation, COGS tracking, and digitized invoice management.</p>
+                    </div>
+                    <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-800">
+                        <h3 class="font-bold text-sm text-white flex items-center gap-2 mb-2">
+                            <i data-lucide="database" class="w-4 h-4 text-blue-400"></i> Accuracy Control
+                        </h3>
+                        <p contenteditable="true" class="editable text-[11px] text-slate-400 leading-relaxed">Implementing double-entry verification and automated error-checking formulas to ensure 99.9% data integrity.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-10">
+                <h2 class="section-header">Technical Experience</h2>
+                <div class="space-y-8">
+                    <div>
+                        <div class="flex justify-between items-start">
+                            <h3 contenteditable="true" class="editable font-bold text-white text-base">Custom Data Entry Web App Developer</h3>
+                            <span class="text-[10px] bg-blue-900/40 text-blue-300 px-2 py-1 rounded">Project</span>
                         </div>
-                        <div>
-                            <p class="text-[10px] text-gray-500 font-bold uppercase mb-1 tracking-widest">Data Management</p>
-                            <p contenteditable="false" class="editable text-sm leading-relaxed">SQL Database Design, Cleaning large datasets, Cloud Storage (Google Drive/OneDrive architecture).</p>
+                        <p contenteditable="true" class="editable text-xs text-slate-400 mt-1 leading-relaxed">Engineered a bespoke web application for streamlined data entry, replacing manual paper logs with a secure cloud-based SQL interface, reducing entry time by 40%.</p>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-start">
+                            <h3 contenteditable="true" class="editable font-bold text-white text-base">POS System UI Architect</h3>
+                            <span class="text-[10px] bg-blue-900/40 text-blue-300 px-2 py-1 rounded">Project</span>
                         </div>
+                        <p contenteditable="true" class="editable text-xs text-slate-400 mt-1 leading-relaxed">Designed and developed a custom Point-of-Sale interface focusing on inventory management for retail. Features high-speed search, barcode compatibility, and automated PDF receipt generation.</p>
                     </div>
-                </section>
+                </div>
+            </section>
 
-                <section>
-                    <h2 class="section-title mb-4">Education</h2>
-                    <div contenteditable="false" class="editable space-y-2">
-                        <p class="font-bold text-white text-sm">ADCS</p>
-                        <p class="text-xs text-blue-400 font-semibold">2nd Year Student</p>
-                        <p class="text-xs text-gray-500 italic">Expected Graduation 2028</p>
-                    </div>
-                </section>
+            <section>
+                <h2 class="section-header">Key Achievements</h2>
+                <ul class="space-y-4 text-xs text-slate-300">
+                    <li class="flex gap-3">
+                        <span class="text-blue-500 font-bold">•</span>
+                        <span contenteditable="true" class="editable">Automated a restaurant's monthly expense report using Google Apps Script, saving the accountant 10+ hours per month.</span>
+                    </li>
+                    <li class="flex gap-3">
+                        <span class="text-blue-500 font-bold">•</span>
+                        <span contenteditable="true" class="editable">Cleaned and migrated a legacy database of 5,000+ entries into a modern, structured Excel dashboard with real-time analytics.</span>
+                    </li>
+                </ul>
+            </section>
+        </main>
 
-                <section>
-                    <h2 class="section-title mb-4">Tools</h2>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-gray-800 text-gray-300 px-2 py-1 rounded text-[10px] font-bold uppercase">Python</span>
-                        <span class="bg-gray-800 text-gray-300 px-2 py-1 rounded text-[10px] font-bold uppercase">React</span>
-                        <span class="bg-gray-800 text-gray-300 px-2 py-1 rounded text-[10px] font-bold uppercase">PostgreSQL</span>
-                        <span class="bg-gray-800 text-gray-300 px-2 py-1 rounded text-[10px] font-bold uppercase">Tailwind</span>
-                    </div>
-                </section>
-            </div>
-
-            <div class="col-span-8 p-10 space-y-10 bg-[#11141A]">
-                
-                <section>
-                    <h2 class="section-title mb-6">Accounting Data Management</h2>
-                    <div class="bg-blue-900/10 border-l-2 border-blue-500 p-4 rounded-r-lg">
-                        <h3 contenteditable="false" class="editable font-bold text-white text-sm">Restaurant Group Accountant Support</h3>
-                        <p contenteditable="false" class="editable text-xs text-gray-400 mb-3 italic">Data Handling & Inventory Optimization</p>
-                        <ul class="list-disc list-outside ml-4 text-xs text-gray-300 space-y-2 leading-relaxed">
-                            <li contenteditable="false" class="editable">Developed **Automated Inventory Sheets** in Excel using conditional formatting and macros to track food waste and cost-of-goods-sold (COGS) across 5 locations.</li>
-                            <li contenteditable="false" class="editable">Managed **Google Sheets Daily Sales Trackers** with real-time sync, enabling the head accountant to monitor revenue discrepancies instantly.</li>
-                            <li contenteditable="false" class="editable">Standardized **Data Cleanup Protocols** for vendor invoices, converting messy PDF/Image data into structured CSVs for accounting software upload.</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section>
-                    <h2 class="section-title mb-6">Professional Projects</h2>
-                    <div class="space-y-6">
-                        <div>
-                            <h3 contenteditable="false" class="editable font-bold text-white text-base">WhatsApp-Integrated POS Interface</h3>
-                            <p contenteditable="false" class="editable text-xs text-gray-500 mb-2">Full-stack UI Project</p>
-                            <p contenteditable="false" class="editable text-xs text-gray-300 leading-relaxed">Built a mobile-first Point of Sale interface designed for phone accessory shops, featuring inventory search and cloud-based receipt generation using JavaScript.</p>
-                        </div>
-                        <div>
-                            <h3 contenteditable="false" class="editable font-bold text-white text-base">Collaborative Doc Automation</h3>
-                            <p contenteditable="false" class="editable text-xs text-gray-500 mb-2">Google Workspace API</p>
-                            <p contenteditable="false" class="editable text-xs text-gray-300 leading-relaxed">Utilized Google Docs and Apps Script to automate the generation of employment contracts and restaurant menus from centralized Data Sheets.</p>
-                        </div>
-                    </div>
-                </section>
-
-            </div>
-        </div>
     </div>
 
     <script>
@@ -147,14 +193,8 @@
         function toggleEdit() {
             isEditing = !isEditing;
             const editables = document.querySelectorAll('.editable');
-            editables.forEach(el => {
-                el.contentEditable = isEditing;
-                el.style.cursor = isEditing ? 'text' : 'default';
-            });
-            const btn = event.currentTarget;
-            btn.classList.toggle('bg-blue-600');
-            btn.classList.toggle('bg-red-600');
-            btn.querySelector('span').innerText = isEditing ? "Lock Profile" : "Edit Mode";
+            editables.forEach(el => el.contentEditable = isEditing);
+            alert(isEditing ? "Edit Mode Enabled. Click text to change it!" : "Edit Mode Disabled.");
         }
 
         function previewImage(input) {
@@ -166,13 +206,13 @@
         }
 
         function downloadPDF() {
-            const element = document.getElementById('cv-content');
+            const element = document.getElementById('cv-page');
             const opt = {
                 margin: 0,
-                filename: 'CS_Data_Resume_2026.pdf',
+                filename: 'Malaika_Pervez_CV_2026.pdf',
                 image: { type: 'jpeg', quality: 1 },
-                html2canvas: { scale: 3, useCORS: true, backgroundColor: '#0B0E14' },
-                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                html2canvas: { scale: 3, useCORS: true, backgroundColor: '#020617' },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
             html2pdf().set(opt).from(element).save();
         }
